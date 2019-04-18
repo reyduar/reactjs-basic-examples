@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Proyecto React</title>
+	<script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js" ></script>
+</head>
+<body>
+	<h2>Proyecto React</h2>
+	<div id="marco" ></div>
+
+	<script type="text/babel">
+
+
+
+		class Principal extends React.Component{
+			constructor(){
+				super();
+				this.state={
+					numero: 0
+				}
+			}
+
+			masUno(){
+				this.setState({ numero: this.state.numero + 1 });
+			}
+
+			menosUno(){
+				this.setState({ numero: this.state.numero -1 });
+			}
+
+
+			render(){
+				return(
+					<div> 
+						<h2>Hola desde componente de React!</h2>
+						<IntroducirTexto/>
+
+						<h2> { this.state.numero  } </h2>
+
+						<AumentarNumero 
+						funAumentar={this.masUno.bind(this) } />
+
+						<br/>
+
+						<DisminuirNumero funDisminuir={this.menosUno.bind(this) } />
+					</div>
+					);
+			}
+		}
+
+
+
+		class AumentarNumero extends React.Component{
+			render(){
+				return(
+						<div> 
+							<button onClick={this.props.funAumentar} >Aumentar</button>
+						</div>
+					);
+			}
+		}
+
+
+
+		class DisminuirNumero extends React.Component{
+
+			render(){
+				return(
+					<div>
+						<button onClick={ this.props.funDisminuir } >
+						Disminuir</button>
+					</div>
+					);
+			}
+		}
+
+		class IntroducirTexto extends React.Component{
+			constructor(){
+				super();
+				this.state={
+					nombre: "Aqui va tu nombre"
+				}
+			}
+
+			cambiarNombre(evento){
+
+				this.setState({nombre: evento.target.value});
+			}
+
+			render(){
+				return(
+					<div>
+						<h4>{ this.state.nombre }</h4>
+						<input onChange={this.cambiarNombre.bind(this) } />
+						<h2>Texto desde otro componente</h2>
+					</div>
+					);
+			}
+
+		}
+
+
+		ReactDOM.render(
+			<Principal/>,
+			document.getElementById('marco')
+			);
+
+
+
+	</script>
+
+
+</body>
+</html>
